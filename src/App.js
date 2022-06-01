@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {nanoid} from "nanoid";
-import './index.css';
+import Task from "./components/Task/Task";
 
 const App = () => {
   const [tasks, setTasks] = useState([
@@ -9,9 +9,25 @@ const App = () => {
     {title: 'Do homework', id: nanoid()},
   ]);
 
+  const removeTask = id => {
+    console.log(id);
+  };
+
+  const taskComponent = tasks.map(task => {
+    return (
+        <Task
+          key={task.id}
+          id={task.id}
+          title={task.title}
+          onRemove={() => removeTask(task.id)}
+        />
+      );
+  });
+
   return (
-    <>
-    </>
+    <div className="container">
+      {taskComponent}
+    </div>
   );
 }
 
