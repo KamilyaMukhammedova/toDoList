@@ -10,7 +10,7 @@ const App = () => {
   ]);
 
   const removeTask = id => {
-    console.log(id);
+    setTasks(tasks.filter(task => task.id !== id));
   };
 
   const taskComponent = tasks.map(task => {
