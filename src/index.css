@@ -18,6 +18,11 @@ code {
   max-width: 1024px;
 }
 
+.lineThrough {
+  color: red;
+  text-decoration: line-through;
+}
+
 
 
 

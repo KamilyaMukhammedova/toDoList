@@ -5,9 +5,9 @@ import AddTaskForm from "./components/AddTaskForm/AddTaskForm";
 
 const App = () => {
   const [tasks, setTasks] = useState([
-    {title: 'Buy milk', id: nanoid()},
-    {title: 'Walk with dog', id: nanoid()},
-    {title: 'Do homework', id: nanoid()},
+    {title: 'Buy milk', id: nanoid(), isDone: false},
+    {title: 'Walk with dog', id: nanoid(), isDone: false},
+    {title: 'Do homework', id: nanoid(), isDone: false},
   ]);
 
   let newTaskTitle = '';
@@ -24,20 +24,36 @@ const App = () => {
     const newTask = {
       title: newTaskTitle,
       id: nanoid(),
+      isDone: false,
     };
-
     setTasks([...tasks, newTask]);
+  };
+
+  const isChecked = (id, checked) => {
+    const tasksCopy = tasks.map(task => {
+      if (task.id === id) {
+        return {
+          ...task,
+          isDone: checked,
+        }
+      }
+      return task;
+    });
+
+    setTasks(tasksCopy);
   };
 
   const taskComponent = tasks.map(task => {
     return (
-        <Task
-          key={task.id}
-          id={task.id}
-          title={task.title}
-          onRemove={() => removeTask(task.id)}
-        />
-      );
+      <Task
+        key={task.id}
+        id={task.id}
+        title={task.title}
+        titleClass={task.isDone ? 'lineThrough' : ''}
+        onChecked={e => isChecked(task.id, e.target.checked)}
+        onRemove={() => removeTask(task.id)}
+      />
+    );
   });
 
   return (
